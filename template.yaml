@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  perchdevjavacustomemailsendersendgridnative:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: >-
+        com.perch.FunctionRequestHandler
+      Runtime: provided.al2
+      CodeUri: ./build/libs/micronaut-lambda-sqs-0.1-lambda.zip
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::647125506707:role/perch-dev-sendgrid-lambda-role'
+      Environment:
+        Variables:
+          DOMAIN_URL_PERCH: 'https://dev-ui.perchtest.fpsinc.com/'
+          EMAIL_FROM_ADDRESS: no-reply@perchinsights.com
+          EMAIL_FROM_NAME: Perch Insights
+          KMS_KEY_ARN_SECRET_ARN: >-
+            arn:aws:secretsmanager:us-east-2:647125506707:secret:tenant1/backend/dev/kms_key_arn-dMoBQu
+          KMS_KEY_REGION: us-east-2
+          SECRETS_MANAGER_REGION: us-east-2
+          SENDGRID_API_KEY_SECRET_ARN: >-
+            arn:aws:secretsmanager:us-east-2:647125506707:secret:tenant1/backend/dev/sendgrind_api_key-WjXd9u
+          SENDGRID_TEMPLATE_ID: d-4b5d53be7f67476eb1b281c5214a9abf
